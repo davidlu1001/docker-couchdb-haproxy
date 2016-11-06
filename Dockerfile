@@ -5,22 +5,16 @@
 #
 
 # Pull base image.
-FROM ubuntu:14.04
+FROM haproxy:1.5
 
-# Install Haproxy.
-RUN \
-  sed -i 's/^# \(.*-backports\s\)/\1/g' /etc/apt/sources.list && \
-  apt-get update && \
-  apt-get install -y haproxy=1.5.3-1~ubuntu14.04.1 python curl && \
-  sed -i 's/^ENABLED=.*/ENABLED=1/' /etc/default/haproxy && \
-  rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y rsyslog vim curl --no-install-recommends
 
 # Add files.
-ADD haproxy.cfg.in /etc/haproxy/haproxy.cfg.in
+ADD haproxy.cfg.in /usr/local/etc/haproxy/haproxy.cfg.in
 ADD start.bash /haproxy-start
 
 # Define working directory.
-WORKDIR /etc/haproxy
+WORKDIR /usr/local/etc/haproxy
 
 # Allow to specify comma-separated list of COUCHDB_SERVERS from ENV
 ENV COUCHDB_SERVERS="localhost:5984"

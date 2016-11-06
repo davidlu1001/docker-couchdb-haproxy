@@ -4,7 +4,7 @@
 # start.bash
 #
 
-HAPROXY="/etc/haproxy"
+HAPROXY="/usr/local/etc/haproxy"
 PIDFILE="/var/run/haproxy.pid"
 
 cd "$HAPROXY"
